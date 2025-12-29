@@ -1,6 +1,6 @@
 const express = require('express');
 const route = express.Router();
-const upload = require('../middelware/imageSaver');
+const upload = require('../middleware/imageSaver');
 
 const {
   getAllProducts,
@@ -13,8 +13,8 @@ const {
   getFeatured,
 } = require('../controllers/productsController.js');
 
-const { verifyAdmin } = require('../middelware/verifyUser');
-const productValidation = require('../middelware/productValidation');
+const { verifyAdmin } = require('../middleware/verifyUser');
+const productValidation = require('../middleware/productValidation');
 
 // Users
 route.get('/', getAllProducts);

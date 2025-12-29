@@ -88,7 +88,18 @@ async function authorizingUser(req, res, next) {
 
 async function verifyAdmin(req, res, next) {
   try {
-    const { token } = req.cookies;
+    let token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      token = req.cookies.token;
+    }
+
+    if (!token) {
+      return res.status(401).json({
+        successful: false,
+        msg: 'No token provided',
+      });
+    }
+
     const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
     const user = await Users.findById(payload.id);
     if (!(user.isAdmin || payload.isAdmin))
@@ -107,7 +118,10 @@ async function verifyAdmin(req, res, next) {
 
 async function defineRole(req, res) {
   try {
-    const { token } = req.cookies;
+    let token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+      token = req.cookies.token;
+    }
 
     if (!token)
       return res.status(401).json({

@@ -1,9 +1,9 @@
 const express = require('express');
 const route = express.Router();
 
-const { verifyAdmin } = require('../middelware/verifyUser');
-const validateCategroy = require('../middelware/categoryValidation');
-const upload = require('../middelware/imageSaver');
+const { verifyAdmin } = require('../middleware/verifyUser');
+const validateCategroy = require('../middleware/categoryValidation');
+const upload = require('../middleware/imageSaver');
 
 const {
   getAllCategories,

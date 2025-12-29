@@ -5,14 +5,14 @@ const {
   loginValidation,
   signupValidation,
   verifyToken,
-} = require('../middelware/authValidation');
+} = require('../middleware/authValidation');
 
-const mailValidation = require('../middelware/varificationMail');
+const mailValidation = require('../middleware/varificationMail');
 
 const {
   authorizingUser,
   defineRole,
-} = require('../middelware/verifyUser');
+} = require('../middleware/verifyUser');
 
 const {
   login,

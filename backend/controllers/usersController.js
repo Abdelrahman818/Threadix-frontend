@@ -55,7 +55,7 @@ async function modifyUser(req, res) {
           }, process.env.TOKEN_SECRET_KEY,
             { expiresIn: '1w' });
 
-          res.cookie('token', newToken, { httpOnly: true, secure: true });
+          res.cookie('token', newToken, { httpOnly: true, secure: true, sameSite: 'Strict' });
         }
       }
     } catch (err) {

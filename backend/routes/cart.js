@@ -1,8 +1,8 @@
 const express = require('express');
 const route = express.Router();
 
-const verifyItemData = require('../middelware/cartValidation.js');
-const { authorizingUser } = require('../middelware/verifyUser.js');
+const verifyItemData = require('../middleware/cartValidation.js');
+const { authorizingUser } = require('../middleware/verifyUser.js');
 
 const {
   getUserCart,

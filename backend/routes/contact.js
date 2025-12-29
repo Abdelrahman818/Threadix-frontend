@@ -1,11 +1,11 @@
 const express = require('express');
 const route = express.Router();
 
-const validateContactData = require('../middelware/contactValidation');
+const validateContactData = require('../middleware/contactValidation');
 
 const {
   verifyAdmin,
-} = require('../middelware/verifyUser');
+} = require('../middleware/verifyUser');
 
 const {
   getAllMsgs,

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const orderValidation = require('../middelware/orderValidation');
-const { verifyAdmin } = require('../middelware/verifyUser');
+const orderValidation = require('../middleware/orderValidation');
+const { verifyAdmin } = require('../middleware/verifyUser');
 const {
   createOrder,
   getAllOrders,

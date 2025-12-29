@@ -33,7 +33,7 @@ async function signup(req, res) {
     // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPwd = await bcrypt.hash(pwd, salt);
-    
+
     // Save user to database
     const newUser = new Users({
       name,
@@ -55,16 +55,16 @@ async function signup(req, res) {
         msg: 'Error saving user to database',
       });
     }
-    
+
     // Generate JWT with only `id` in payload
     const token = jwt.sign({ id: newUser._id }, process.env.TOKEN_SECRET_KEY, { expiresIn: '1w' });
-    
+
     // Set token in HttpOnly cookie
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Lax',
-      maxAge: 7*24*60*60*1000, // 1 week
+      secure: true,
+      sameSite: 'Strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
     return res.status(201).json({
@@ -83,8 +83,8 @@ function logout(req, res) {
   try {
     res.cookie('token', '', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'Lax',
+      secure: true,
+      sameSite: 'Strict',
       maxAge: 0,
     });
     return res.status(200).json({

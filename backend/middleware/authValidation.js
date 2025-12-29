@@ -34,7 +34,7 @@ async function loginValidation(req, res, next) {
         successful: false,
         msg: 'Password is wrong',
       });
-      
+
     // 4. Generate Token
     const token = jwt.sign(
       { id: user._id },
@@ -45,11 +45,11 @@ async function loginValidation(req, res, next) {
     // 5. Set Cookie
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       sameSite: 'Strict',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-    
+
   } catch (error) {
     return res.status(500).json({
       successful: false,
@@ -68,7 +68,7 @@ function signupValidation(req, res, next) {
   });
 
   const { error } = schema.validate(req.body);
-  
+
   if (error)
     return res.status(400).json({
       successful: false,
@@ -82,7 +82,7 @@ function signupValidation(req, res, next) {
 async function verifyToken(req, res) {
   try {
     const token = req.cookies?.token;
-    
+
     if (!token)
       return res.status(401).json({
         successful: false,
@@ -90,7 +90,7 @@ async function verifyToken(req, res) {
       });
 
     const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
-    
+
     return res.status(200).json({
       successful: true,
       data: payload.id,

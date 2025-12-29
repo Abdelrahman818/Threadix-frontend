@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const cookies = require('cookie-parser');
+const helmet = require('helmet');
+const expressRateLimit = require('express-rate-limit');
 const path = require('path');
 
 // App init
@@ -12,7 +14,12 @@ app.use(express.json());
 app.use(cookies());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Enable CORS policy
+// Security
+app.use(helmet());
+app.use(expressRateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+}));
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
