@@ -1,0 +1,25 @@
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+
+export const END_POINT = {
+  LOGIN: `${API_BASE_URL}/api/auth/login`,
+  SIGNUP: `${API_BASE_URL}/api/auth/signup`,
+  LOGOUT: `${API_BASE_URL}/api/auth/logout`,
+  VERIFY_USER: `${API_BASE_URL}/api/auth/verifyUser`,
+  ACTIVATE_USER: `${API_BASE_URL}/api/auth/verifyUser`,
+  VERIFY_TOKEN: `${API_BASE_URL}/api/auth/verifyToken`,
+  GET_CURRENT_USER: `${API_BASE_URL}/api/auth/getCurrentUser`,
+  PRODUCTS: `${API_BASE_URL}/api/products`,
+  CATEGORIES: (id) => `${API_BASE_URL}/api/categories${id ? '/' + id : ''}`,
+  GET_PRODUCT: (id) => `${API_BASE_URL}/api/products/item/${id}`,
+  SEARCH: (route) => `${API_BASE_URL}/api/${route}/search`,
+  FILTER: (filter) => `${API_BASE_URL}/api/filter/${filter}`,
+  CONTACT: `${API_BASE_URL}/api/contact`,
+  USERS: `${API_BASE_URL}/api/users`,
+  GET_ROLE: `${API_BASE_URL}/api/auth/getRole`,
+  GET_FEATURED: `${API_BASE_URL}/api/products/featured`,
+  CART: (id) => `${API_BASE_URL}/api/cart${id ? '/' + id : ''}`,
+  ORDERS: `${API_BASE_URL}/api/orders`,
+  MY_ORDERS: `${API_BASE_URL}/api/orders/my-orders`,
+  TRACK_ORDER: (orderId) => `${API_BASE_URL}/api/orders/track/${orderId}`,
+  ADMIN_STATS: `${API_BASE_URL}/api/admin/stats`,
+};

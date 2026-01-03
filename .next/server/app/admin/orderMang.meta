@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/orderMang/layout,_N_T_/admin/orderMang/page,_N_T_/admin/orderMang"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/orderMang/__PAGE__",
+    "/admin/orderMang",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}

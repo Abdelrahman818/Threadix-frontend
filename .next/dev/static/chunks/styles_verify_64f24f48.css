@@ -1,0 +1,48 @@
+/* [project]/styles/verify.css [app-client] (css) */
+.three-dots-loading {
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.dot {
+  background-color: var(--accent);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+.first, .second, .third {
+  animation-name: loading;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+.second {
+  animation-delay: .333s;
+}
+
+.third {
+  animation-delay: .666s;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/*# sourceMappingURL=styles_verify_64f24f48.css.map*/

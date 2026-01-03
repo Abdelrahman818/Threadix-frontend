@@ -1,0 +1,77 @@
+/* [project]/styles/admin.css [app-client] (css) */
+#actions {
+  width: 20px;
+  position: absolute;
+  top: 22px;
+  right: 33px;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  background: none;
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: none;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+  transition: background .2s;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:single-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:double-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:vertical:start:decrement {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:vertical:end:increment {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:horizontal:start:decrement {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-button:horizontal:end:increment {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/*# sourceMappingURL=styles_admin_36d16d28.css.map*/

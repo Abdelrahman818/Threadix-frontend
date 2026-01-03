@@ -1,0 +1,3 @@
+{
+  "/auth/verify/[token]/page": "app/auth/verify/[token]/page.js"
+}
