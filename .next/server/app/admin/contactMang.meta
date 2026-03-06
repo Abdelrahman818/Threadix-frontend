@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/contactMang/layout,_N_T_/admin/contactMang/page,_N_T_/admin/contactMang"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/contactMang/__PAGE__",
+    "/admin/contactMang",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}

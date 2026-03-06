@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/VSCode/Web-dev/Front-end/Projects/e-store/app/admin/layout.jsx"],"sourcesContent":["export default function Aside() {\r\n  return (\r\n    <aside className=\"w-64 bg-white border-r hidden md:block\">\r\n      <div className=\"p-4 font-bold text-xl\">Threadix Admin</div>\r\n      <ul className=\"p-4 space-y-3 text-gray-700\">\r\n        <li className=\"hover:text-black cursor-pointer\">Dashboard</li>\r\n        <li className=\"hover:text-black cursor-pointer\">Products</li>\r\n        <li className=\"hover:text-black cursor-pointer\">Orders</li>\r\n        <li className=\"hover:text-black cursor-pointer\">Users</li>\r\n        <li className=\"hover:text-black cursor-pointer\">Categories</li>\r\n      </ul>\r\n    </aside>\r\n  )\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,8OAAC;QAAM,WAAU;;0BACf,8OAAC;gBAAI,WAAU;0BAAwB;;;;;;0BACvC,8OAAC;gBAAG,WAAU;;kCACZ,8OAAC;wBAAG,WAAU;kCAAkC;;;;;;kCAChD,8OAAC;wBAAG,WAAU;kCAAkC;;;;;;kCAChD,8OAAC;wBAAG,WAAU;kCAAkC;;;;;;kCAChD,8OAAC;wBAAG,WAAU;kCAAkC;;;;;;kCAChD,8OAAC;wBAAG,WAAU;kCAAkC;;;;;;;;;;;;;;;;;;AAIxD"}}]
+}

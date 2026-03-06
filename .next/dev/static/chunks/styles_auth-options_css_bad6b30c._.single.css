@@ -1,0 +1,60 @@
+/* [project]/styles/auth-options.css [app-client] (css) */
+.auth-btns {
+  justify-content: center;
+  gap: 20px;
+  display: flex;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.auth-btns .login-btn {
+  background-color: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  z-index: 1;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  width: 100px;
+  padding: 5px 10px;
+}
+
+.auth-btns .signup-btn {
+  width: 100px;
+  color: var(--white);
+  border: 2px solid var(--white);
+  cursor: pointer;
+  z-index: 1;
+  background-color: #0000;
+  border-radius: 5px;
+  outline: none;
+  padding: 5px 10px;
+}
+
+.user-opts {
+  color: var(--white);
+  z-index: 1;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 15px;
+  display: flex;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.user-opts .profile, .user-opts .cart {
+  object-fit: cover;
+  border: 2px solid var(--white);
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.user-opts .cart {
+  border: none;
+}
+
+/*# sourceMappingURL=styles_auth-options_css_bad6b30c._.single.css.map*/
