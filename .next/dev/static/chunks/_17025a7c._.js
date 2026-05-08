@@ -13,6 +13,7 @@ const API_BASE_URL = __TURBOPACK__imported__module__$5b$project$5d2f$node_module
 const END_POINT = {
     LOGIN: `${API_BASE_URL}/api/auth/login`,
     SIGNUP: `${API_BASE_URL}/api/auth/signup`,
+    SOCIAL_AUTH: `${API_BASE_URL}/api/auth/social`,
     LOGOUT: `${API_BASE_URL}/api/auth/logout`,
     VERIFY_USER: `${API_BASE_URL}/api/auth/verifyUser`,
     ACTIVATE_USER: `${API_BASE_URL}/api/auth/verifyUser`,

@@ -357,3 +357,53 @@
     opacity: 1;
   }
 }
+
+/* ======== Quantity Controls (Order Summary) ======== */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  padding: 2px 4px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  line-height: 1;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background: #111;
+  color: #fff;
+}
+
+.qty-btn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.qty-value {
+  min-width: 22px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}

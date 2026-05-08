@@ -8,9 +8,14 @@
 }
 
 .auth-btns .login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px 10px;
   width: 100px;
+  height: 40 !important;
   background-color: var(--primary);
+  padding: 0;
   color: white;
   border: none;
   border-radius: 5px;
@@ -20,8 +25,12 @@
 }
 
 .auth-btns .signup-btn {
-  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100px;
+  padding: 0;
+  height: 40 !important;
   background-color: transparent;
   color: var(--white);
   border: 2px solid var(--white);

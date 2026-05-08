@@ -117,6 +117,29 @@
   border-color: #000;
 }
 
+.option-list {
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  display: flex;
+}
+
+.option-chip {
+  color: #444;
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+}
+
 .bottom-actions {
   gap: 14px;
   margin-top: 40px;
@@ -124,6 +147,23 @@
 }
 
 .btn-add {
+  color: #000;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  flex: 1;
+  padding: 15px 0;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all .3s;
+}
+
+.btn-add:hover {
+  background: #f8f8f8;
+}
+
+.btn-buy {
   color: #fff;
   cursor: pointer;
   background: #000;
@@ -136,25 +176,8 @@
   transition: all .3s;
 }
 
-.btn-add:hover {
-  opacity: .85;
-}
-
-.btn-buy {
-  color: #000;
-  cursor: pointer;
-  background: #f3f3f3;
-  border: none;
-  border-radius: 10px;
-  flex: 1;
-  padding: 15px 0;
-  font-size: 15px;
-  font-weight: 600;
-  transition: all .3s;
-}
-
 .btn-buy:hover {
-  background: #e8e8e8;
+  opacity: .85;
 }
 
 @media (max-width: 950px) {

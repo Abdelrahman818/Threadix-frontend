@@ -15,8 +15,6 @@ export default function ProductPage() {
   const [found, setFound] = useState(true);
   const [product, setProduct] = useState(null);
   const [tempImage, setTempImage] = useState(null);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState('');
   const { id } = useParams();
@@ -60,18 +58,6 @@ export default function ProductPage() {
       return;
     }
 
-    // Validation: Check if color is required and selected
-    if (product.colors && product.colors.length > 0 && !selectedColor) {
-      showMessage('Please select a color', 'error');
-      return;
-    }
-
-    // Validation: Check if size is required and selected
-    if (product.size && product.size.length > 0 && !selectedSize) {
-      showMessage('Please select a size', 'error');
-      return;
-    }
-
     // Send item to backend
     try {
       const response = await fetch(END_POINT.CART(''), {
@@ -83,8 +69,6 @@ export default function ProductPage() {
         body: JSON.stringify({
           productId: product._id,
           quantity: quantity,
-          ...(product.colors && product.colors.length > 0 && { color: selectedColor }),
-          ...(product.size && product.size.length > 0 && { size: selectedSize }),
         }),
       });
 
@@ -98,10 +82,6 @@ export default function ProductPage() {
       if (json.successful) {
         showMessage('Added to cart successfully!', 'success');
         refreshCart();
-
-        // Reset selections
-        setSelectedColor(null);
-        setSelectedSize(null);
         setQuantity(1);
       } else {
         showMessage(json.msg || 'Failed to add item to cart', 'error');
@@ -124,18 +104,6 @@ export default function ProductPage() {
       return;
     }
 
-    // Validation: Check if color is required and selected
-    if (product.colors && product.colors.length > 0 && !selectedColor) {
-      showMessage('Please select a color', 'error');
-      return;
-    }
-
-    // Validation: Check if size is required and selected
-    if (product.size && product.size.length > 0 && !selectedSize) {
-      showMessage('Please select a size', 'error');
-      return;
-    }
-
     // Add item to cart and redirect to checkout
     try {
       const response = await fetch(END_POINT.CART(''), {
@@ -147,8 +115,6 @@ export default function ProductPage() {
         body: JSON.stringify({
           productId: product._id,
           quantity: quantity,
-          ...(product.colors && product.colors.length > 0 && { color: selectedColor }),
-          ...(product.size && product.size.length > 0 && { size: selectedSize }),
         }),
       });
 
@@ -216,21 +182,11 @@ export default function ProductPage() {
                 {product.colors && product.colors.length > 0 && (
                   <div className="section">
                     <p className="label">Available Colors</p>
-                    <div className="colors-group" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <div className="option-list">
                       {product.colors.map((color, idx) => (
                         <span
                           key={idx}
-                          className={`color-btn ${selectedColor === color ? 'active' : ''}`}
-                          onClick={() => setSelectedColor(color)}
-                          style={{
-                            padding: '8px 16px',
-                            border: selectedColor === color ? '2px solid #000' : '1px solid #ccc',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            backgroundColor: selectedColor === color ? '#000' : '#fff',
-                            color: selectedColor === color ? '#fff' : '#000',
-                            transition: 'all 0.2s',
-                          }}
+                          className="option-chip"
                         >
                           {color}
                         </span>
@@ -242,21 +198,11 @@ export default function ProductPage() {
                 {product.size && product.size.length > 0 && (
                   <div className="section">
                     <p className="label">Available Sizes</p>
-                    <div className="sizes-group" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <div className="option-list">
                       {product.size.map((size, idx) => (
                         <span
                           key={idx}
-                          className={`size-btn ${selectedSize === size ? 'active' : ''}`}
-                          onClick={() => setSelectedSize(size)}
-                          style={{
-                            padding: '8px 16px',
-                            border: selectedSize === size ? '2px solid #000' : '1px solid #ccc',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            backgroundColor: selectedSize === size ? '#000' : '#fff',
-                            color: selectedSize === size ? '#fff' : '#000',
-                            transition: 'all 0.2s',
-                          }}
+                          className="option-chip"
                         >
                           {size}
                         </span>

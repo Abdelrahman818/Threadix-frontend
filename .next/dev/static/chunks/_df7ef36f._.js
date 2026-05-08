@@ -90,8 +90,6 @@ function ProductPage() {
     const [found, setFound] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [product, setProduct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [tempImage, setTempImage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [selectedColor, setSelectedColor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [selectedSize, setSelectedSize] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [quantity, setQuantity] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const [message, setMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const { id } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useParams"])();
@@ -137,16 +135,6 @@ function ProductPage() {
             showMessage('This product is out of stock', 'error');
             return;
         }
-        // Validation: Check if color is required and selected
-        if (product.colors && product.colors.length > 0 && !selectedColor) {
-            showMessage('Please select a color', 'error');
-            return;
-        }
-        // Validation: Check if size is required and selected
-        if (product.size && product.size.length > 0 && !selectedSize) {
-            showMessage('Please select a size', 'error');
-            return;
-        }
         // Send item to backend
         try {
             const response = await fetch(__TURBOPACK__imported__module__$5b$project$5d2f$config$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["END_POINT"].CART(''), {
@@ -157,13 +145,7 @@ function ProductPage() {
                 credentials: 'include',
                 body: JSON.stringify({
                     productId: product._id,
-                    quantity: quantity,
-                    ...product.colors && product.colors.length > 0 && {
-                        color: selectedColor
-                    },
-                    ...product.size && product.size.length > 0 && {
-                        size: selectedSize
-                    }
+                    quantity: quantity
                 })
             });
             if (response.status === 401) {
@@ -174,9 +156,6 @@ function ProductPage() {
             if (json_0.successful) {
                 showMessage('Added to cart successfully!', 'success');
                 refreshCart();
-                // Reset selections
-                setSelectedColor(null);
-                setSelectedSize(null);
                 setQuantity(1);
             } else {
                 showMessage(json_0.msg || 'Failed to add item to cart', 'error');
@@ -196,16 +175,6 @@ function ProductPage() {
             showMessage('This product is out of stock', 'error');
             return;
         }
-        // Validation: Check if color is required and selected
-        if (product.colors && product.colors.length > 0 && !selectedColor) {
-            showMessage('Please select a color', 'error');
-            return;
-        }
-        // Validation: Check if size is required and selected
-        if (product.size && product.size.length > 0 && !selectedSize) {
-            showMessage('Please select a size', 'error');
-            return;
-        }
         // Add item to cart and redirect to checkout
         try {
             const response_0 = await fetch(__TURBOPACK__imported__module__$5b$project$5d2f$config$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["END_POINT"].CART(''), {
@@ -216,13 +185,7 @@ function ProductPage() {
                 credentials: 'include',
                 body: JSON.stringify({
                     productId: product._id,
-                    quantity: quantity,
-                    ...product.colors && product.colors.length > 0 && {
-                        color: selectedColor
-                    },
-                    ...product.size && product.size.length > 0 && {
-                        size: selectedSize
-                    }
+                    quantity: quantity
                 })
             });
             const json_1 = await response_0.json();
@@ -231,7 +194,7 @@ function ProductPage() {
                 return;
             }
             if (json_1.successful) {
-                refreshCart();
+                await refreshCart();
                 // Redirect to checkout page
                 router.push('/checkout/confirm');
             } else {
@@ -258,12 +221,12 @@ function ProductPage() {
                                     alt: "Product Main"
                                 }, void 0, false, {
                                     fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                    lineNumber: 173,
+                                    lineNumber: 131,
                                     columnNumber: 31
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 172,
+                                lineNumber: 130,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -274,18 +237,18 @@ function ProductPage() {
                                         onClick: ()=>setTempImage(img)
                                     }, idx, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 177,
+                                        lineNumber: 135,
                                         columnNumber: 64
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 176,
+                                lineNumber: 134,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                        lineNumber: 171,
+                        lineNumber: 129,
                         columnNumber: 15
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -296,7 +259,7 @@ function ProductPage() {
                                 children: product.title
                             }, void 0, false, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 184,
+                                lineNumber: 142,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -307,14 +270,14 @@ function ProductPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 186,
+                                lineNumber: 144,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "divider"
                             }, void 0, false, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 188,
+                                lineNumber: 146,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -325,7 +288,7 @@ function ProductPage() {
                                         children: "Description"
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 191,
+                                        lineNumber: 149,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -333,13 +296,13 @@ function ProductPage() {
                                         children: product.desc
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 192,
+                                        lineNumber: 150,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 190,
+                                lineNumber: 148,
                                 columnNumber: 17
                             }, this),
                             product.colors && product.colors.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -350,43 +313,28 @@ function ProductPage() {
                                         children: "Available Colors"
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 198,
+                                        lineNumber: 156,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "colors-group",
-                                        style: {
-                                            display: 'flex',
-                                            gap: '10px',
-                                            flexWrap: 'wrap'
-                                        },
+                                        className: "option-list",
                                         children: product.colors.map((color, idx_0)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: `color-btn ${selectedColor === color ? 'active' : ''}`,
-                                                onClick: ()=>setSelectedColor(color),
-                                                style: {
-                                                    padding: '8px 16px',
-                                                    border: selectedColor === color ? '2px solid #000' : '1px solid #ccc',
-                                                    borderRadius: '4px',
-                                                    cursor: 'pointer',
-                                                    backgroundColor: selectedColor === color ? '#000' : '#fff',
-                                                    color: selectedColor === color ? '#fff' : '#000',
-                                                    transition: 'all 0.2s'
-                                                },
+                                                className: "option-chip",
                                                 children: color
                                             }, idx_0, false, {
                                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                                lineNumber: 204,
+                                                lineNumber: 158,
                                                 columnNumber: 61
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 199,
+                                        lineNumber: 157,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 197,
+                                lineNumber: 155,
                                 columnNumber: 65
                             }, this),
                             product.size && product.size.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -397,43 +345,28 @@ function ProductPage() {
                                         children: "Available Sizes"
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 219,
+                                        lineNumber: 165,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "sizes-group",
-                                        style: {
-                                            display: 'flex',
-                                            gap: '10px',
-                                            flexWrap: 'wrap'
-                                        },
+                                        className: "option-list",
                                         children: product.size.map((size, idx_1)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: `size-btn ${selectedSize === size ? 'active' : ''}`,
-                                                onClick: ()=>setSelectedSize(size),
-                                                style: {
-                                                    padding: '8px 16px',
-                                                    border: selectedSize === size ? '2px solid #000' : '1px solid #ccc',
-                                                    borderRadius: '4px',
-                                                    cursor: 'pointer',
-                                                    backgroundColor: selectedSize === size ? '#000' : '#fff',
-                                                    color: selectedSize === size ? '#fff' : '#000',
-                                                    transition: 'all 0.2s'
-                                                },
+                                                className: "option-chip",
                                                 children: size
                                             }, idx_1, false, {
                                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                                lineNumber: 225,
+                                                lineNumber: 167,
                                                 columnNumber: 58
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 220,
+                                        lineNumber: 166,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 218,
+                                lineNumber: 164,
                                 columnNumber: 61
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -444,7 +377,7 @@ function ProductPage() {
                                         children: "Quantity"
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 240,
+                                        lineNumber: 174,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -468,7 +401,7 @@ function ProductPage() {
                                                 children: "−"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                                lineNumber: 246,
+                                                lineNumber: 180,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -485,7 +418,7 @@ function ProductPage() {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                                lineNumber: 256,
+                                                lineNumber: 190,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -501,19 +434,19 @@ function ProductPage() {
                                                 children: "+"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                                lineNumber: 264,
+                                                lineNumber: 198,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 241,
+                                        lineNumber: 175,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 239,
+                                lineNumber: 173,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -538,7 +471,7 @@ function ProductPage() {
                                             children: "Final Price:"
                                         }, void 0, false, {
                                             fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                            lineNumber: 287,
+                                            lineNumber: 221,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -554,18 +487,18 @@ function ProductPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                            lineNumber: 290,
+                                            lineNumber: 224,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                    lineNumber: 282,
+                                    lineNumber: 216,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 277,
+                                lineNumber: 211,
                                 columnNumber: 17
                             }, this),
                             message && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -580,7 +513,7 @@ function ProductPage() {
                                 children: message
                             }, void 0, false, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 301,
+                                lineNumber: 235,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -592,7 +525,7 @@ function ProductPage() {
                                         children: "Add To Cart"
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 313,
+                                        lineNumber: 247,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -601,39 +534,39 @@ function ProductPage() {
                                         children: "Buy Now"
                                     }, void 0, false, {
                                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                        lineNumber: 314,
+                                        lineNumber: 248,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                                lineNumber: 312,
+                                lineNumber: 246,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/shop/item/[id]/page.jsx",
-                        lineNumber: 182,
+                        lineNumber: 140,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/shop/item/[id]/page.jsx",
-                lineNumber: 168,
+                lineNumber: 126,
                 columnNumber: 23
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/shop/item/[id]/page.jsx",
-            lineNumber: 167,
+            lineNumber: 125,
             columnNumber: 16
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$not$2d$found$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
             fileName: "[project]/app/shop/item/[id]/page.jsx",
-            lineNumber: 319,
+            lineNumber: 253,
             columnNumber: 18
         }, this)
     }, void 0, false);
 }
-_s(ProductPage, "33b2wtVuTIZt9N3e/sGyLCPtglw=", false, function() {
+_s(ProductPage, "jizlmnnEAG9oHFw5hjaKm01+mvc=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$context$2f$UserContext$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useUser"],

@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-top">
 
         {/* Quick Links */}
-        <div className="footer-section">
+        <div className="footer-section d-flex">
           <h4>Quick Links</h4>
           <ul>
             <li><Link href="/">Home</Link></li>
@@ -27,6 +27,14 @@ const Footer = () => {
             <button className="btn-primary" type="submit">Subscribe</button>
           </form>
         </div> */}
+        <div className="footer-section">
+          <h4>Contact us</h4>
+          <ul>
+            <li>Phone: 01100240856</li>
+            <li>Mail: cs.threadix@gmail.com</li>
+            <li>Whatsapp: <Link href="#">+02 0110 024 0856</Link></li>
+          </ul>
+        </div>
 
         {/* Social Media */}
         <div className="footer-section">
@@ -61,7 +69,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="footer-bottom">
         <p>All rights reserved. Threadix {new Date().getFullYear()} ©.</p>
-        <p>Powered by CodeCraft&reg;</p>
+        <p>Powered by Technology crafting&reg;</p>
       </div>
     </footer>
   );

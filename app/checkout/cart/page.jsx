@@ -109,18 +109,6 @@ export default function CartPage() {
     setSubTotal(total);
   }, [cartItems]);
 
-  // Format item name with color and size in brackets
-  const formatItemName = (item) => {
-    const parts = [];
-    if (item.color) parts.push(item.color);
-    if (item.size) parts.push(item.size);
-    
-    if (parts.length > 0) {
-      return `${item.name} (${parts.join(', ')})`;
-    }
-    return item.name;
-  };
-
   if (loading && cartItems?.length === 0) {
     return (
       <section className="cart-page flex items-center justify-center min-h-[400px]">
@@ -153,7 +141,7 @@ export default function CartPage() {
                 />
 
                 <div className="item-info">
-                  <h3>{formatItemName(item)}</h3>
+                  <h3>{item.name}</h3>
                   <p className="price">{item.salePrice} LE</p>
 
                   <div className="quantity">

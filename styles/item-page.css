@@ -119,6 +119,28 @@
   border-color: #000;
 }
 
+.option-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.option-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #444;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+}
+
 /* Buttons */
 .bottom-actions {
   display: flex;

@@ -45,6 +45,7 @@ export default function Checkout() {
     city: '',
     government: '',
     detailedAddress: '',
+    note: '',
   });
 
   const [shippingCost, setShippingCost] = useState(0);
@@ -56,6 +57,7 @@ export default function Checkout() {
   const [subTotal, setSubTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [updatingItemId, setUpdatingItemId] = useState(null);
 
   // Modal State
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -127,6 +129,33 @@ export default function Checkout() {
     calculateShipping(governorate);
   };
 
+  const handleQuantityChange = async (item, delta) => {
+    const newQty = item.quantity + delta;
+    const itemId = item.id;
+    setUpdatingItemId(itemId);
+    try {
+      if (newQty < 1) {
+        await fetch(`${END_POINT.CART('')}/item/${itemId}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+        });
+      } else {
+        await fetch(`${END_POINT.CART('')}/item/${itemId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ quantity: newQty }),
+        });
+      }
+      await refreshCart();
+    } catch (err) {
+      console.error('Failed to update quantity:', err);
+    } finally {
+      setUpdatingItemId(null);
+    }
+  };
+
   const validatePhoneOnly = () => {
     if (!formData.phone.trim()) {
       setErrors({ phone: 'Phone Number is required' });
@@ -189,15 +218,17 @@ export default function Checkout() {
         phone: formData.phone,
         items: cartItemsForOrder.map(item => ({
           productId: item.productId,
+          name: item.name,
+          price: item.salePrice,
           quantity: item.quantity,
-          color: item.color,
-          size: item.size
         })),
         totalPrice: totalOrderPrice,
+        shippingPrice: shippingCost,
         paymentMethod: 'Cash on Delivery',
         paymentStatus: 'unpaid',
         orderStatus: 'pending',
         address: `${formData.detailedAddress}, ${formData.city}, ${formData.government}`, // Combine for single string schema
+        note: formData.note.trim(),
       };
 
       // 3. Create Order
@@ -381,9 +412,28 @@ export default function Checkout() {
         {/* Items List */}
         <div style={{ marginBottom: '20px', borderBottom: '1px solid #f0f0f0', paddingBottom: '10px' }}>
           {cartItems.map((item) => (
-            <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '15px', color: '#555' }}>
-              <span>{item.name} x {item.quantity}</span>
-              <span>{(item.salePrice * item.quantity).toFixed(2)} LE</span>
+            <div key={item.productId || item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', fontSize: '15px', color: '#555' }}>
+              <span style={{ flex: 1, marginRight: '12px' }}>{item.name}</span>
+              <div className={styles['qty-controls']}>
+                <button
+                  className={styles['qty-btn']}
+                  onClick={() => handleQuantityChange(item, -1)}
+                  disabled={updatingItemId === item.id}
+                  aria-label="Decrease quantity"
+                >
+                  −
+                </button>
+                <span className={styles['qty-value']}>{item.quantity}</span>
+                <button
+                  className={styles['qty-btn']}
+                  onClick={() => handleQuantityChange(item, 1)}
+                  disabled={updatingItemId === item.id}
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
+              <span style={{ marginLeft: '12px', minWidth: '80px', textAlign: 'right', fontWeight: 600 }}>{(item.salePrice * item.quantity).toFixed(2)} LE</span>
             </div>
           ))}
         </div>
@@ -519,6 +569,16 @@ export default function Checkout() {
                 style={{ minHeight: '80px' }}
               />
               {errors.detailedAddress && <small className={styles['error-text']}>{errors.detailedAddress}</small>}
+
+              {/* Customer Note */}
+              <textarea
+                name="note"
+                placeholder="Order note or special instructions (optional)"
+                value={formData.note}
+                onChange={handleInputChange}
+                className={styles['detailed-address-textarea']}
+                style={{ minHeight: '80px' }}
+              />
             </div>
 
             {/* Modal Summary */}

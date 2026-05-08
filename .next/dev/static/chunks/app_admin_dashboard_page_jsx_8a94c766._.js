@@ -19,11 +19,11 @@ var _s = __turbopack_context__.k.signature();
 function Dashboard() {
     _s();
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(34);
-    if ($[0] !== "e2016d654b7888d9e5e3e2c3d8eae2b989481c8804cfc20cb48e17ccd7734abc") {
+    if ($[0] !== "ae05e250caba77e22d8ecd8a0b8029fcd54fb65d8aa9b834515d0be08c69ce54") {
         for(let $i = 0; $i < 34; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "e2016d654b7888d9e5e3e2c3d8eae2b989481c8804cfc20cb48e17ccd7734abc";
+        $[0] = "ae05e250caba77e22d8ecd8a0b8029fcd54fb65d8aa9b834515d0be08c69ce54";
     }
     let t0;
     if ($[1] === Symbol.for("react.memo_cache_sentinel")) {
@@ -261,8 +261,11 @@ function Dashboard() {
                 t14,
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-xl font-bold mt-2",
-                    children: t15
-                }, void 0, false, {
+                    children: [
+                        t15,
+                        " LE"
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/app/admin/dashboard/page.jsx",
                     lineNumber: 137,
                     columnNumber: 64
@@ -423,7 +426,7 @@ function Dashboard() {
                                                     className: "py-4 text-sm font-semibold text-gray-900",
                                                     children: [
                                                         order.totalPrice?.toFixed(2) || "0.00",
-                                                        " EGP"
+                                                        " LE"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/dashboard/page.jsx",
@@ -438,12 +441,12 @@ function Dashboard() {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/dashboard/page.jsx",
                                                         lineNumber: 164,
-                                                        columnNumber: 541
+                                                        columnNumber: 540
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/dashboard/page.jsx",
                                                     lineNumber: 164,
-                                                    columnNumber: 520
+                                                    columnNumber: 519
                                                 }, this)
                                             ]
                                         }, order._id, true, {

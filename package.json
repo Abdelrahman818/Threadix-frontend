@@ -1,5 +1,5 @@
 {
-  "name": "e-store",
+  "name": "threadix",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.19",
+    "firebase": "^12.11.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.555.0",
     "next": "^16.1.1",

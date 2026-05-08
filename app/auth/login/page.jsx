@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Lottie from "lottie-react";
 import loginAnimation from "@/animations/login_animation.json";
-import { END_POINT } from "@/config";
 import { useUser } from "@/context/UserContext";
+import SocialAuthButtons from "@/components/SocialAuthButtons";
+import { loginWithEmail } from "@/lib/socialAuth";
 
 import styles from "@/styles/login.module.css";
 
@@ -25,39 +26,29 @@ export default function Login() {
     }
   };
 
+  const handleSocialError = (message) => {
+    setErrorMessage(message);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage('');
 
     try {
-      const res = await fetch(END_POINT.LOGIN, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(formData),
+      await loginWithEmail({
+        email: formData.email,
+        password: formData.pwd,
       });
 
-      const json = await res.json();
-
-      if (json.successful) {
-        // Refresh user and cart state before redirecting
-        await refreshUser();
-        await refreshCart();
-
-        // Redirect to home page on success
-        router.push('/');
-        router.refresh();
-      } else {
-        setErrorMessage(json.msg || 'Login failed. Please check your credentials.');
-        setIsLoading(false);
-      }
+      await refreshUser();
+      await refreshCart();
+      router.push('/');
+      router.refresh();
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
+      setErrorMessage(error.message || 'Login failed. Please check your credentials.');
+    } finally {
       setIsLoading(false);
-      console.error(error);
     }
   };
 
@@ -69,6 +60,8 @@ export default function Login() {
         <div className={styles['login-form-section']}>
           <h2>Welcome Back</h2>
           <p>Login to access your Threadix account</p>
+
+          <SocialAuthButtons mode="login" onError={handleSocialError} />
 
           <form className={styles['login-form']} onSubmit={handleSubmit}>
             <div className={styles['form-group']}>
@@ -121,7 +114,7 @@ export default function Login() {
           </form>
 
           <p className={styles['login-bottom-text']}>
-            Don't have an account? <Link href="/auth/signup">Sign Up</Link>
+            Don&apos;t have an account? <Link href="/auth/signup">Sign Up</Link>
           </p>
         </div>
 

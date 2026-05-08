@@ -18,6 +18,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8
 const END_POINT = {
     LOGIN: `${API_BASE_URL}/api/auth/login`,
     SIGNUP: `${API_BASE_URL}/api/auth/signup`,
+    SOCIAL_AUTH: `${API_BASE_URL}/api/auth/social`,
     LOGOUT: `${API_BASE_URL}/api/auth/logout`,
     VERIFY_USER: `${API_BASE_URL}/api/auth/verifyUser`,
     ACTIVATE_USER: `${API_BASE_URL}/api/auth/verifyUser`,

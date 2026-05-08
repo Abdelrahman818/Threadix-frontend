@@ -1,14 +1,19 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { END_POINT } from "@/config";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Lottie from "lottie-react";
 import signupAnimation from "@/animations/signup_animation.json";
+import SocialAuthButtons from "@/components/SocialAuthButtons";
+import { signUpWithEmail } from "@/lib/socialAuth";
+import { useUser } from "@/context/UserContext";
 
 import "@/styles/signup.css";
 
 export default function Signup() {
+  const router = useRouter();
+  const { refreshUser, refreshCart } = useUser();
   const [formData, setFormData] = useState({});
   const [pwdError, setPwdError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +29,11 @@ export default function Signup() {
     }
   };
 
+  const handleSocialError = (message) => {
+    setSuccessMessage('');
+    setErrorMessage(message);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -37,25 +47,18 @@ export default function Signup() {
     setSuccessMessage('');
 
     try {
-      const { pwdConf, ...payload } = formData;
-      const res = await fetch(END_POINT.SIGNUP, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(payload),
+      await signUpWithEmail({
+        name: formData.name,
+        email: formData.email,
+        password: formData.pwd,
       });
 
-      const json = await res.json();
-
-      if (json.successful && json.msg) {
-        setSuccessMessage(json.msg);
-      } else {
-        setErrorMessage(json.msg || 'Signup failed. Please try again.');
-      }
+      await refreshUser();
+      await refreshCart();
+      router.push('/');
+      router.refresh();
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
+      setErrorMessage(error.message || 'Signup failed. Please try again.');
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -76,6 +79,8 @@ export default function Signup() {
         <div className="signup-form-section">
           <h2>Create Account</h2>
           <p>Join Threadix and start shopping today!</p>
+
+          <SocialAuthButtons mode="signup" onError={handleSocialError} />
 
           <form className="signup-form" onSubmit={handleSubmit}>
             <div className="form-group">
