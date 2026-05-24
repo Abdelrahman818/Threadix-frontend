@@ -5,6 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { END_POINT, API_BASE_URL } from '@/config';
 import { useUser } from '@/context/UserContext';
 import NotFound from '@/app/not-found';
+import {
+  addDemoCartItem,
+  fetchDemoProduct,
+  getDemoImageSrc,
+  isDemoMode,
+} from '@/lib/demoMode';
 
 import '@/styles/item-page.css';
 
@@ -20,6 +26,19 @@ export default function ProductPage() {
   const { id } = useParams();
 
   useEffect(() => {
+    if (isDemoMode) {
+      fetchDemoProduct(id)
+        .then((demoProduct) => {
+          if (!demoProduct) {
+            setFound(false);
+            return;
+          }
+          setProduct(demoProduct);
+        })
+        .catch(error => console.error(error.message));
+      return;
+    }
+
     fetch(END_POINT.GET_PRODUCT(id), {
       method: 'GET',
       headers: {
@@ -33,7 +52,7 @@ export default function ProductPage() {
       })
       .then(json => setProduct(json.data))
       .catch(error => console.error(error.message));
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (product) {
@@ -55,6 +74,14 @@ export default function ProductPage() {
 
     if (!product.stock) {
       showMessage('This product is out of stock', 'error');
+      return;
+    }
+
+    if (isDemoMode) {
+      addDemoCartItem(product, quantity);
+      showMessage('Added to cart successfully!', 'success');
+      refreshCart();
+      setQuantity(1);
       return;
     }
 
@@ -104,6 +131,13 @@ export default function ProductPage() {
       return;
     }
 
+    if (isDemoMode) {
+      addDemoCartItem(product, quantity);
+      await refreshCart();
+      router.push('/checkout/confirm');
+      return;
+    }
+
     // Add item to cart and redirect to checkout
     try {
       const response = await fetch(END_POINT.CART(''), {
@@ -148,14 +182,14 @@ export default function ProductPage() {
               {/* LEFT SIDE */}
               <div className="images-section">
                 <div className="main-image">
-                  {product && <img src={`${API_BASE_URL}${tempImage}`} alt="Product Main" />}
+                  {product && <img src={isDemoMode ? getDemoImageSrc(tempImage) : `${API_BASE_URL}${tempImage}`} alt="Product Main" />}
                 </div>
 
                 <div className="image-slider">
                   {product && product.images.map((img, idx) => (
                     <img
                       key={idx}
-                      src={`${API_BASE_URL}${img}`}
+                      src={isDemoMode ? getDemoImageSrc(img) : `${API_BASE_URL}${img}`}
                       className={tempImage === img ? "active" : ""}
                       onClick={() => setTempImage(img)}
                     />
@@ -225,7 +259,7 @@ export default function ProductPage() {
                         backgroundColor: '#f5f5f5',
                       }}
                     >
-                      −
+                      -
                     </button>
                     <input
                       type="number"

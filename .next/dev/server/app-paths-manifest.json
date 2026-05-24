@@ -1,1 +1,11 @@
-{}
+{
+  "/auth/login/page": "app/auth/login/page.js",
+  "/checkout/cart/page": "app/checkout/cart/page.js",
+  "/checkout/confirm/page": "app/checkout/confirm/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/page": "app/page.js",
+  "/shop/[category]/page": "app/shop/[category]/page.js",
+  "/shop/item/[id]/page": "app/shop/item/[id]/page.js",
+  "/shop/page": "app/shop/page.js",
+  "/track/page": "app/track/page.js"
+}

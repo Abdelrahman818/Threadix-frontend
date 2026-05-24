@@ -1,0 +1,124 @@
+{
+  "data": [
+    {
+      "_id": "demo-order-1007",
+      "orderId": 1007,
+      "name": "Demo User",
+      "email": "user@something.top",
+      "phone": "01234567890",
+      "orderStatus": "pending",
+      "paymentMethod": "Cash on Delivery",
+      "paymentStatus": "unpaid",
+      "totalPrice": 425,
+      "shippingPrice": 50,
+      "address": "My home address, Nasr City, Cairo",
+      "createdAt": "2026-05-20T10:30:00.000Z",
+      "items": [
+        {
+          "productId": "6934c538fc13ae64fdf01ed6",
+          "name": "Ramen Noodle Soup Cups",
+          "price": 26,
+          "quantity": 2,
+          "color": "Teal",
+          "size": "S"
+        },
+        {
+          "productId": "6934c538fc13ae64fdf01ef1",
+          "name": "USB-C Hub",
+          "price": 30,
+          "quantity": 1,
+          "color": "Turquoise",
+          "size": "L"
+        }
+      ]
+    },
+    {
+      "_id": "demo-order-1008",
+      "orderId": 1008,
+      "name": "Demo User",
+      "email": "user@something.top",
+      "phone": "01234567890",
+      "orderStatus": "in delivery",
+      "paymentMethod": "Cash on Delivery",
+      "paymentStatus": "unpaid",
+      "totalPrice": 610,
+      "shippingPrice": 50,
+      "address": "My home address, Nasr City, Cairo",
+      "createdAt": "2026-05-18T14:15:00.000Z",
+      "items": [
+        {
+          "productId": "6934c538fc13ae64fdf01ee1",
+          "name": "Crew Neck Sweater",
+          "price": 92,
+          "quantity": 1,
+          "color": "Mauv",
+          "size": "M"
+        },
+        {
+          "productId": "6934c538fc13ae64fdf01eed",
+          "name": "Compact Electric Kettle",
+          "price": 70,
+          "quantity": 2,
+          "color": "Pink",
+          "size": "2XL"
+        }
+      ]
+    },
+    {
+      "_id": "demo-order-1009",
+      "orderId": 1009,
+      "name": "Demo User",
+      "email": "user@something.top",
+      "phone": "01234567890",
+      "orderStatus": "completed",
+      "paymentMethod": "Cash on Delivery",
+      "paymentStatus": "paid",
+      "totalPrice": 780,
+      "shippingPrice": 50,
+      "address": "My home address, Nasr City, Cairo",
+      "createdAt": "2026-05-11T09:45:00.000Z",
+      "items": [
+        {
+          "productId": "6934c538fc13ae64fdf01ef8",
+          "name": "Lightweight Workout Tank",
+          "price": 75,
+          "quantity": 2,
+          "color": "Purple",
+          "size": "2XL"
+        },
+        {
+          "productId": "6934c538fc13ae64fdf01f05",
+          "name": "Plant-Based Cookbook",
+          "price": 25,
+          "quantity": 1,
+          "color": "Puce",
+          "size": "2XL"
+        }
+      ]
+    },
+    {
+      "_id": "demo-order-1010",
+      "orderId": 1010,
+      "name": "Demo User",
+      "email": "user@something.top",
+      "phone": "01234567890",
+      "orderStatus": "cancelled",
+      "paymentMethod": "Cash on Delivery",
+      "paymentStatus": "cancelled",
+      "totalPrice": 260,
+      "shippingPrice": 50,
+      "address": "My home address, Nasr City, Cairo",
+      "createdAt": "2026-05-09T17:20:00.000Z",
+      "items": [
+        {
+          "productId": "6934c538fc13ae64fdf01ef4",
+          "name": "Bluetooth Sleep Headphones",
+          "price": 26,
+          "quantity": 2,
+          "color": "Yellow",
+          "size": "XL"
+        }
+      ]
+    }
+  ]
+}

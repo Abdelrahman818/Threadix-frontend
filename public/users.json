@@ -1,0 +1,30 @@
+[
+    {
+        "id": "1",
+        "name": "user",
+        "email": "user@something.top",
+        "pwd": "user",
+        "isAdmin": false,
+        "phone": "01234567890",
+        "city": "Nasr City",
+        "government": "Cairo",
+        "address": "My home address",
+        "isActive": true,
+        "createdAt": "creation time",
+        "updatedAt": "update time"
+    },
+    {
+        "id": "2",
+        "name": "admin",
+        "email": "admin@something.top",
+        "pwd": "admin",
+        "isAdmin": true,
+        "phone": "01234567890",
+        "city": "Dokki",
+        "government": "Giza",
+        "address": "My home address",
+        "isActive": true,
+        "createdAt": "creation time",
+        "updatedAt": "update time"
+    }
+]

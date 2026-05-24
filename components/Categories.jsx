@@ -3,7 +3,7 @@
 import { END_POINT, API_BASE_URL } from "@/config";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import { fetchDemoCategories, getDemoImageSrc, isDemoMode } from "@/lib/demoMode";
 
 const Categories = () => {
 
@@ -11,6 +11,13 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    if (isDemoMode) {
+      fetchDemoCategories()
+        .then(setCategories)
+        .catch(error => console.error(error.message));
+      return;
+    }
+
     fetch(END_POINT.CATEGORIES(''), {
       method: 'GET',
       headers: {
@@ -31,9 +38,9 @@ const Categories = () => {
         {categories
           ?.filter((cat) => cat.isActive)
           .map((cat, i) => (
-            <div onClick={() => router.push(`/shop/${cat.name}`)} key={i} className="category-card">
+            <div onClick={() => router.push(`/shop/${encodeURIComponent(cat.name)}`)} key={cat._id || i} className="category-card">
               <div className="category-img">
-                <img src={`${API_BASE_URL}${cat.imgUrl}`} alt="no image" />
+                <img src={isDemoMode ? getDemoImageSrc(cat.imgUrl) : `${API_BASE_URL}${cat.imgUrl}`} alt={cat.name || "Category"} />
               </div>
               <h3>{cat.name && cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}</h3>
             </div>

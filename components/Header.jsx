@@ -3,18 +3,18 @@
 import { useUser } from "@/context/UserContext";
 import { ShoppingCart, Package, LogOut } from "lucide-react";
 import Link from "next/link";
+import { isDemoMode } from "@/lib/demoMode";
 
 import '@/styles/auth-options.css';
 
 const Header = () => {
   const { isLoggedIn, logout, cartItems } = useUser();
-
   return (
     <>
       {!isLoggedIn ? (
         <div className="auth-btns">
-          <Link href="/auth/login" className="login-btn text-center">Login</Link>
-          <Link href="/auth/signup" className="signup-btn text-center btn-outline">Sign Up</Link>
+          <Link href="/auth/login" className="login-btn text-center">{isDemoMode ? "Demo Login" : "Login"}</Link>
+          {!isDemoMode && <Link href="/auth/signup" className="signup-btn text-center btn-outline">Sign Up</Link>}
         </div>
       ) : (
         <div className="flex items-center gap-6 absolute top-0 right-0 w-full justify-end bg-transparent px-10 py-7 text-white z-10">

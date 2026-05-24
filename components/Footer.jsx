@@ -31,7 +31,7 @@ const Footer = () => {
           <h4>Contact us</h4>
           <ul>
             <li>Phone: 01100240856</li>
-            <li>Mail: cs.threadix@gmail.com</li>
+            <li>Mail: abdelrahmanismaeel818@gmail.com</li>
             <li>Whatsapp: <Link href="#">+02 0110 024 0856</Link></li>
           </ul>
         </div>

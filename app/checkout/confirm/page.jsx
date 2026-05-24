@@ -5,6 +5,11 @@ import { END_POINT } from "@/config";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import styles from '@/styles/checkout.module.css';
+import {
+  clearDemoCart,
+  isDemoMode,
+  updateDemoCartItem,
+} from "@/lib/demoMode";
 
 const EGYPTIAN_GOVERNORATES = [
   'Cairo',
@@ -133,6 +138,14 @@ export default function Checkout() {
     const newQty = item.quantity + delta;
     const itemId = item.id;
     setUpdatingItemId(itemId);
+
+    if (isDemoMode) {
+      updateDemoCartItem(itemId, newQty);
+      await refreshCart();
+      setUpdatingItemId(null);
+      return;
+    }
+
     try {
       if (newQty < 1) {
         await fetch(`${END_POINT.CART('')}/item/${itemId}`, {
@@ -210,6 +223,17 @@ export default function Checkout() {
       // Calculate total price from cart items
       const itemsTotal = cartItemsForOrder.reduce((acc, item) => acc + (item.salePrice * item.quantity), 0);
       const totalOrderPrice = itemsTotal + shippingCost;
+
+      if (isDemoMode) {
+        clearDemoCart();
+        await refreshCart();
+        setShowConfirmModal(false);
+        showNotification('success', 'Demo order placed successfully! Redirecting...');
+        setTimeout(() => {
+          router.push('/');
+        }, 1500);
+        return;
+      }
 
       // 2. Prepare Order Payload
       const orderPayload = {

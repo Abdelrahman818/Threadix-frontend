@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "_id": "demo-category-activewear",
+      "name": "Clothing - Activewear",
+      "imgUrl": "http://dummyimage.com/640x420.png/111827/ffffff&text=Activewear",
+      "isActive": true
+    },
+    {
+      "_id": "demo-category-kitchen",
+      "name": "Kitchen",
+      "imgUrl": "http://dummyimage.com/640x420.png/0f766e/ffffff&text=Kitchen",
+      "isActive": true
+    },
+    {
+      "_id": "demo-category-computers",
+      "name": "Computers",
+      "imgUrl": "http://dummyimage.com/640x420.png/1d4ed8/ffffff&text=Computers",
+      "isActive": true
+    },
+    {
+      "_id": "demo-category-accessories",
+      "name": "Accessories",
+      "imgUrl": "http://dummyimage.com/640x420.png/be123c/ffffff&text=Accessories",
+      "isActive": true
+    },
+    {
+      "_id": "demo-category-food-snacks",
+      "name": "Food - Snacks",
+      "imgUrl": "http://dummyimage.com/640x420.png/ca8a04/ffffff&text=Snacks",
+      "isActive": true
+    },
+    {
+      "_id": "demo-category-toys",
+      "name": "Toys",
+      "imgUrl": "http://dummyimage.com/640x420.png/7c3aed/ffffff&text=Toys",
+      "isActive": true
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import loginAnimation from "@/animations/login_animation.json";
 import { useUser } from "@/context/UserContext";
 import SocialAuthButtons from "@/components/SocialAuthButtons";
 import { loginWithEmail } from "@/lib/socialAuth";
+import { fetchDemoUsers, isDemoMode, loginDemoUser } from "@/lib/demoMode";
 
 import styles from "@/styles/login.module.css";
 
@@ -35,20 +36,41 @@ export default function Login() {
     setIsLoading(true);
     setErrorMessage('');
 
-    try {
-      await loginWithEmail({
-        email: formData.email,
-        password: formData.pwd,
-      });
+    if (!isDemoMode) {
+      try {
+        await loginWithEmail({
+          email: formData.email,
+          password: formData.pwd,
+        });
+  
+        await refreshUser();
+        await refreshCart();
+        router.push('/');
+        router.refresh();
+      } catch (error) {
+        setErrorMessage(error.message || 'Login failed. Please check your credentials.');
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      try {
+        const users = await fetchDemoUsers();
+        const user = users.find((demoUser) => demoUser.name === formData.name);
 
-      await refreshUser();
-      await refreshCart();
-      router.push('/');
-      router.refresh();
-    } catch (error) {
-      setErrorMessage(error.message || 'Login failed. Please check your credentials.');
-    } finally {
-      setIsLoading(false);
+        if (user && user.pwd === formData.pwd) {
+          loginDemoUser(user);
+          await refreshUser();
+          await refreshCart();
+          router.push('/');
+          router.refresh();
+        } else {
+          setErrorMessage('Wrong username or password.');
+        }
+      } catch {
+        setErrorMessage('Demo users could not be loaded.');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -61,20 +83,35 @@ export default function Login() {
           <h2>Welcome Back</h2>
           <p>Login to access your Threadix account</p>
 
-          <SocialAuthButtons mode="login" onError={handleSocialError} />
+          {!isDemoMode && <SocialAuthButtons mode="login" onError={handleSocialError} />}
 
           <form className={styles['login-form']} onSubmit={handleSubmit}>
-            <div className={styles['form-group']}>
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            {!isDemoMode ? (
+              <div className={styles['form-group']}>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>) :
+              (
+                <div className={styles['form-group']}>
+                  <label>Username</label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Try user or admin"
+                    value={formData.name || ''}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              )
+            }
 
             <div className={styles['form-group']}>
               <label>Password</label>
@@ -113,9 +150,11 @@ export default function Login() {
             )}
           </form>
 
-          <p className={styles['login-bottom-text']}>
-            Don&apos;t have an account? <Link href="/auth/signup">Sign Up</Link>
-          </p>
+          {!isDemoMode && (
+            <p className={styles['login-bottom-text']}>
+              Don&apos;t have an account? <Link href="/auth/signup">Sign Up</Link>
+            </p>
+          )}
         </div>
 
         {/* Animation Section */}

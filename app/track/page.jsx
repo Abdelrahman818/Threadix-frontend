@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { END_POINT } from '@/config';
 import { useUser } from '@/context/UserContext';
+import { fetchDemoOrder, fetchDemoOrders, isDemoMode } from '@/lib/demoMode';
 import '@/styles/track.css';
 
 export default function Tracking() {
@@ -23,9 +24,15 @@ export default function Tracking() {
     }
   }, [isLoggedIn]);
 
-  const fetchUserOrders = async () => {
+  async function fetchUserOrders() {
     try {
       setIsLoadingOrders(true);
+      if (isDemoMode) {
+        const orders = await fetchDemoOrders();
+        setUserOrders(orders);
+        return;
+      }
+
       const res = await fetch(END_POINT.MY_ORDERS, {
         method: 'GET',
         headers: {
@@ -48,7 +55,7 @@ export default function Tracking() {
     } finally {
       setIsLoadingOrders(false);
     }
-  };
+  }
 
   // Map order status to tracking steps
   const getTrackingSteps = (orderStatus) => {
@@ -115,6 +122,18 @@ export default function Tracking() {
     setSelectedOrderId(null);
 
     try {
+      if (isDemoMode) {
+        const demoOrder = await fetchDemoOrder(orderId.trim());
+        if (demoOrder) {
+          setOrder(demoOrder);
+          setError('');
+        } else {
+          setError('Order not found. Try 1007, 1008, 1009, or 1010.');
+          setOrder(null);
+        }
+        return;
+      }
+
       const res = await fetch(END_POINT.TRACK_ORDER(orderId.trim()), {
         method: 'GET',
         headers: {
@@ -149,6 +168,18 @@ export default function Tracking() {
     setSearched(true);
 
     try {
+      if (isDemoMode) {
+        const demoOrder = await fetchDemoOrder(clickedOrderId);
+        if (demoOrder) {
+          setOrder(demoOrder);
+          setError('');
+        } else {
+          setError('Order not found.');
+          setOrder(null);
+        }
+        return;
+      }
+
       const res = await fetch(END_POINT.TRACK_ORDER(clickedOrderId), {
         method: 'GET',
         headers: {
@@ -277,6 +308,7 @@ export default function Tracking() {
                     {order.items.map((item, index) => (
                       <div key={index} className="order-item">
                         <div className="item-info">
+                          {item.name && <span className="item-name">{item.name}</span>}
                           <span className="item-quantity">Qty: {item.quantity}</span>
                           {item.color && <span className="item-attr">Color: {item.color}</span>}
                           {item.size && <span className="item-attr">Size: {item.size}</span>}

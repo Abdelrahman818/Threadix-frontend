@@ -6,6 +6,12 @@ import { useRouter } from "next/navigation";
 import { API_BASE_URL, END_POINT } from "@/config";
 import { useUser } from '@/context/UserContext';
 import Link from "next/link";
+import {
+  getDemoImageSrc,
+  isDemoMode,
+  removeDemoCartItem,
+  updateDemoCartItem,
+} from "@/lib/demoMode";
 import '@/styles/cart.css';
 
 export default function CartPage() {
@@ -23,6 +29,12 @@ export default function CartPage() {
   }, [ctxCartItems]);
 
   const updateQtyOnServer = async (id, newQty) => {
+    if (isDemoMode) {
+      updateDemoCartItem(id, newQty);
+      refreshCart();
+      return true;
+    }
+
     try {
       const res = await fetch(END_POINT.CART(`item/${id}`), {
         method: 'PATCH',
@@ -79,6 +91,12 @@ export default function CartPage() {
   };
 
   const removeItem = async (id) => {
+    if (isDemoMode) {
+      setCartItems(removeDemoCartItem(id));
+      refreshCart();
+      return;
+    }
+
     try {
       const res = await fetch(END_POINT.CART(`item/${id}`), {
         method: 'DELETE',
@@ -134,7 +152,7 @@ export default function CartPage() {
               <div key={item.id} className="cart-item">
                 <img
                   className="rounded-md"
-                  src={API_BASE_URL + item.image}
+                  src={isDemoMode ? getDemoImageSrc(item.image) : API_BASE_URL + item.image}
                   alt={item.name}
                   width={120}
                   height={120}

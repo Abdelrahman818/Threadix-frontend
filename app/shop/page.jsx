@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { END_POINT } from "@/config";
 import ProductCard from "@/components/ProductCard";
 import Filters from "@/components/Filters";
+import { fetchDemoProducts, isDemoMode } from "@/lib/demoMode";
 import "@/styles/shop.css";
 
 export default function Shop() {
@@ -13,21 +14,36 @@ export default function Shop() {
   const [sort, setSort] = useState("");
 
   // Getting products from backend
-  const getProducts = () => {
-    fetch(END_POINT.PRODUCTS, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then(res => res.json())
-      .then(json => {
-        setProducts(json.data);
+  const getProducts = async () => {
+    if (isDemoMode) {
+      const demoProducts = await fetchDemoProducts();
+      setProducts(demoProducts);
+    } else {
+      fetch(END_POINT.PRODUCTS, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch(error => console.error(error.message))
+        .then(res => res.json())
+        .then(json => {
+          setProducts(json.data);
+        })
+        .catch(error => console.error(error.message))
+    }
   };
 
-  const getMatchedProducts = () => {
+  const getMatchedProducts = async () => {
+    if (isDemoMode) {
+      const demoProducts = await fetchDemoProducts();
+      const normalizedTarget = target.toLowerCase();
+      setProducts(demoProducts.filter((product) => (
+        product.title.toLowerCase().includes(normalizedTarget) ||
+        product.category.toLowerCase().includes(normalizedTarget)
+      )));
+      return;
+    }
+
     fetch(`${END_POINT.SEARCH('products')}/${target}`)
       .then(res => res.json())
       .then(json => { setProducts(json.data) })
@@ -47,15 +63,16 @@ export default function Shop() {
 
   useEffect(() => {
     if (sort === "assending")
-      products.sort((a, b) => a.salePrice - b.salePrice);
+      setProducts([...products].sort((a, b) => a.salePrice - b.salePrice));
     else if (sort === "dessending")
-      products.sort((a, b) => b.salePrice - a.salePrice);
+      setProducts([...products].sort((a, b) => b.salePrice - a.salePrice));
     else if (sort === "new")
-      products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    setProducts([...products]);
+      setProducts([...products].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
   }, [sort]);
 
-  useEffect(() => getProducts(), []);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <div className="shop-page">
@@ -67,7 +84,7 @@ export default function Shop() {
       <Filters target={target} getTarget={setTarget} getSort={setSort} />
 
       <div className="products-grid">
-        {products && products.length > 0 && products.map((product, idx) => (
+        {products && products.length > 0 && products.map((product) => (
           <ProductCard
             key={product._id}
             id={product._id}
